@@ -37,6 +37,7 @@ classDiagram
     class Demande{
         int id
         LocalDatetime date
+        bool validatedByContact
         fk int idOffre
         fk int idAssocation
     }
