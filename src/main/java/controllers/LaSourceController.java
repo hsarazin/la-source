@@ -16,7 +16,7 @@ import services.Facade;
 @Controller
 @SessionAttributes("courant")
 @RequestMapping("/")
-public class Exemple3Controller {
+public class LaSourceController {
     @Autowired
     private Facade facade;
     @RequestMapping("")
@@ -26,8 +26,6 @@ public class Exemple3Controller {
         return("login");
     }
 
-    // on passe un objet user en paramètre : mapping automatique des champs du formulaire
-    // on jour aussi avec les messages d'erreurs (BindingResult) ...
     @PostMapping("login")
     public String checkLP(MemberDto memberDto, BindingResult result, Model model){
         if (facade.checkLP(memberDto.getLogin(), memberDto.getPassword())) {
@@ -56,7 +54,6 @@ public class Exemple3Controller {
         model.addAttribute("username", memberDto.getLogin());
         return "welcome";
     }
-
 
     @RequestMapping("logout")
     public String logout(SessionStatus status,Model model) {

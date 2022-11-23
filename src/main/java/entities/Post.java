@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 @Entity
 public class Post {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int id;
     private String nom;
     private String Categorie;

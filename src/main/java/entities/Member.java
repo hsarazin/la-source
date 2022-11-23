@@ -3,12 +3,14 @@ package entities;
 import javax.persistence.*;
 import java.util.List;
 
+@Entity
 public class Member {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int id;
     private String login;
     private String password;
+    private boolean isContact;
 
     @ManyToOne
     private Association association;
@@ -40,6 +42,14 @@ public class Member {
     public void setPassword(String password) {
         this.password = password;
     }
+    public boolean isContact() {
+        return isContact;
+    }
+
+    public void setContact(boolean contact) {
+        isContact = contact;
+    }
+
 
     public Association getAssociation() {
         return association;
