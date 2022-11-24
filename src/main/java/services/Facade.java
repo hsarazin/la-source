@@ -33,18 +33,23 @@ public class Facade {
     }
 
    @Transactional
-   public Member createUser(String login,String password) throws UserAllreadyExistsException {
-       Member member=em.find(Member.class,login);
+   public Member createUser(String login,String password, boolean isContact) throws UserAllreadyExistsException {
+       Member member=em.find(Member.class,findIdByLogin(login));
         if (member!=null) {
             throw new UserAllreadyExistsException();
         }
-       member =new Member(login,password, new Association());
+       member =new Member(login,password,isContact);
         em.persist(member);
         return member;
    }
 
    public Member retrieveUser(int id) {
         return em.find(Member.class,id);
+   }
+
+   public boolean getIsContact(String login) {
+       Member member=em.find(Member.class,findIdByLogin(login));
+       return member.getContact();
    }
 
 }

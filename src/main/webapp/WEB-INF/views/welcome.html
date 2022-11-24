@@ -5,7 +5,12 @@
     <title>Bienvenue</title>
 </head>
 <body>
-Bienvenue, <span th:text="${username}"/>.
+Bienvenue, <span th:text="${username}" />.
+<p th:text="${contact}"> does that work bro ? </p>
+
+<form th:if="${contact}" th:action="@{/logout}">
+    <button type="submit">Admin right only</button>
+</form>
 
 <form th:action="@{/logout}">
     <button type="submit">se déconnecter</button>

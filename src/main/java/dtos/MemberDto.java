@@ -4,13 +4,16 @@ public class MemberDto {
     private int id;
     private String login;
     private String password;
+    private boolean isContact;
 
     public MemberDto() {
     }
 
-    public MemberDto(String login, String password) {
+    public MemberDto(int id, String login, String password, boolean isContact) {
+        this.id = id;
         this.login = login;
         this.password = password;
+        this.isContact = isContact;
     }
 
     public int getId() {
@@ -36,4 +39,8 @@ public class MemberDto {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public boolean getIsContact() { return isContact; }
+
+    public void setIsContact(boolean isContact) { this.isContact = isContact; }
 }

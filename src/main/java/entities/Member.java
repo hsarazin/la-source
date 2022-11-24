@@ -1,5 +1,7 @@
 package entities;
 
+import org.hibernate.type.TrueFalseType;
+
 import javax.persistence.*;
 import javax.ws.rs.POST;
 import java.util.List;
@@ -23,10 +25,10 @@ public class Member {
 
     public Member(){}
 
-    public Member(String login, String password, Association association) {
+    public Member(String login, String password, boolean isContact ) {
         this.login = login;
         this.password = password;
-        this.association = association;
+        this.isContact = isContact;
     }
 
     public int getId() {

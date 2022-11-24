@@ -32,6 +32,7 @@ public class LaSourceController {
             // on place courant dans le modèle, mais il s'agit d'un attribut de session, il se retrouve ainsi conservé en session
             model.addAttribute("courant", memberDto.getLogin());
             model.addAttribute("username", memberDto.getLogin());
+            addElemIfContact(model, memberDto.getLogin());
             return "welcome";
         } else {
             // on crée à la volée un "ObjectError" : erreur globale dans l'objet (ici l'objet c'est l'instance de user où transitent les infos de login)
@@ -45,13 +46,14 @@ public class LaSourceController {
     @PostMapping("register")
     public String register(MemberDto memberDto,BindingResult result, Model model){
         try {
-            facade.createUser(memberDto.getLogin(),memberDto.getPassword());
+            facade.createUser(memberDto.getLogin(),memberDto.getPassword(), memberDto.getIsContact());
         } catch (UserAllreadyExistsException e) {
             result.addError(new ObjectError("user","Ce login n'est pas disponible."));
             return "login";
         }
         model.addAttribute("courant", memberDto.getLogin());
         model.addAttribute("username", memberDto.getLogin());
+        addElemIfContact(model, memberDto.getLogin());
         return "welcome";
     }
 
@@ -63,4 +65,12 @@ public class LaSourceController {
         return "login";
     }
 
+    private void addElemIfContact(Model model,String courant) {
+        model.addAttribute("contact", facade.getIsContact(courant));
+        /**model.addAttribute("received",facade.getReceivedMessage(courant));
+        model.addAttribute("sent",facade.getSentMessage(courant));
+        model.addAttribute("users",facade.getAllUserNamesExcept(courant));
+        model.addAttribute("msgDto",new MessageDto());
+        model.addAttribute("AAR",facade.findByTextAAR());**/
+    }
 }
