@@ -1,6 +1,7 @@
 package entities;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Association {
@@ -8,6 +9,16 @@ public class Association {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int id;
     private String nom;
+
+    @OneToOne
+    private Member contactMember;
+
+    @OneToMany
+    private List<Member> members;
+
+    @OneToMany
+    private List<Post> posts;
+
     public Association() {}
 
     public Association(String nom, Member contactMember) {
@@ -26,4 +37,15 @@ public class Association {
         this.nom = nom;
     }
 
+    public List<Member> getMembers() { return members; }
+
+    public void setMembers(List<Member> members) { this.members = members; }
+
+    public Member getContactMember() { return contactMember; }
+
+    public void setContactMember(Member contactMember) { this.contactMember = contactMember; }
+
+    public List<Post> getPosts() { return posts; }
+
+    public void setPosts(List<Post> posts) { this.posts = posts; }
 }

@@ -2,6 +2,7 @@ package entities;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 public class Post {
@@ -9,16 +10,20 @@ public class Post {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int id;
     private String nom;
-    private String Categorie;
+    private String categorie;
     private LocalDateTime date;
+
     @ManyToOne
     private Association association;
+
+    @ManyToMany
+    private List<Member> demands;
 
     public Post() {}
 
     public Post(String nom, String categorie, LocalDateTime date, Association association) {
         this.nom = nom;
-        Categorie = categorie;
+        this.categorie = categorie;
         this.date = date;
         this.association = association;
     }
@@ -36,11 +41,11 @@ public class Post {
     }
 
     public String getCategorie() {
-        return Categorie;
+        return categorie;
     }
 
     public void setCategorie(String categorie) {
-        Categorie = categorie;
+        this.categorie = categorie;
     }
 
     public LocalDateTime getDate() {
@@ -58,4 +63,8 @@ public class Post {
     public void setAssociation(Association association) {
         this.association = association;
     }
+
+    public List<Member> getDemands(){ return demands; }
+
+    public void setDemands(List<Member> demands) {this.demands = demands; }
 }

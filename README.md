@@ -5,36 +5,40 @@
 classDiagram
     
     Association "1" -- "n" Membre : membre
-    Association "1" -- "1" Membre : admin
-    Membre "0..n"-- "0..n" Post : membre
+    Association "1" --> "1" Membre : admin
+    Association "1" -- "0..n" Post
+    Membre "0..n"--> "0..n" Post : membre
     Membre "0..n" -- "0..n" Post : admin
+    
     
     class Association{
         int id
         String nom
-        List~String~ membres
-        fk int idPersonneContact
+        fk List~Member~ members
+        fk Member contactMembers
+        fk Post posts
     }
     
     class Membre{
         int id
-        String nom
-        String prenom
-        fk int idAssociation
-        bool contact
+        String login
+        String password
+        bool isContact
+        fk Association association
+        fk List~Post~ demande
+        fk List~Post~ valide
         MembrePropose()
-        AdminPropose()
         AdminValidate()
         AdminAccept()
     }
     
     class Post{
         int id
+        String nom
+        String categorie
         LocalDateTime date
-        fk int idAssiciation
-        List~Association~ demandeAsso
-        List~Association~ isValidatedDemand
-        List~Association~ isAcceptedDemand
+        fk Association association
+        fk List~Membre~ demands
     }
 ```
 ```mermaid
