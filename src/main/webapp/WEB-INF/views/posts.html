@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<body>
+<div th:fragment="post">
+    <form th:action="@{/demande}">
+        <table>
+            <tr  th:each="post : ${posts}">
+                <td th:text="${post.nom}"></td>
+                <td th:text="${post.categorie}"></td>
+            </tr>
+        </table>
+    </form>
+</div>
+</body>
+</html>

@@ -2,6 +2,7 @@ package services;
 
 import entities.Association;
 import entities.Member;
+import entities.Post;
 import exceptions.UserAllreadyExistsException;
 import org.springframework.stereotype.Service;
 
@@ -9,6 +10,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
+import java.util.Collection;
+import java.util.List;
 
 @Service
 public class Facade {
@@ -51,5 +54,33 @@ public class Facade {
        Member member=em.find(Member.class,findIdByLogin(login));
        return member.getContact();
    }
+
+   public List<Association> getAllAssociations() {
+        Query q = em.createQuery("select a from Association a");
+        return q.getResultList();
+   }
+
+   public List<Association> getAllAssociationsExcept(Association asso){
+        Query q = em.createQuery("select a from Association a where a.nom<>:n").setParameter("n", asso.getNom());
+        return q.getResultList();
+   }
+
+   public List<Post> getAllPost(){
+        Query q = em.createQuery("select p from Post p");
+        return q.getResultList();
+   }
+
+   public List<Post> getALlPostExcept(Post post){
+       Query q = em.createQuery("select p from Post p where p.nom<>:n").setParameter("n", post.getNom());
+       return q.getResultList();
+   }
+
+   @Transactional
+    public void createPost(String nom, String categorie, int idContactPerson){
+        Association asso = em.find(Member.class, idContactPerson).getAssociation();
+        Post p=new Post(nom, categorie, asso);
+        em.persist(p);
+    }
+
 
 }

@@ -5,15 +5,30 @@
     <title>Bienvenue</title>
 </head>
 <body>
-Bienvenue, <span th:text="${username}" />.
-<p th:text="${contact}"> does that work bro ? </p>
+<h1>
+    <span th:text="${username}" /> account.
+</h1>
 
-<form th:if="${contact}" th:action="@{/logout}">
-    <button type="submit">Admin right only</button>
+<form th:action="@{/fragment}">
+    <p>
+        <button type="submit" th:name="fragment" th:value="post">See all posts</button>
+
+        <button type="submit" th:name="fragment" th:value="association">See all associations</button>
+
+        <button type="submit">See all demands</button>
+    <p/>
 </form>
+<th:block th:if="${fragment} == 'post'">
+    <div th:insert="posts :: post"></div>
+</th:block>
 
-<form th:action="@{/logout}">
-    <button type="submit">se déconnecter</button>
+<th:block th:if="${fragment} == 'association'">
+    <div th:insert="associations :: association"></div>
+</th:block>
+
+
+<form>
+    <button type="submit" value="Submit" th:formaction="@{/logout}">se déconnecter</button>
 </form>
 
 </body>

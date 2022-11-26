@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<body>
+<div th:fragment="association">
+    <form>
+        <table>
+            <tr  th:each="association : ${associations}">
+                <td th:text="${association.nom}"></td>
+            </tr>
+        </table>
+    </form>
+</div>
+</body>
+</html>

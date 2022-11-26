@@ -11,6 +11,7 @@ public class Post {
     private int id;
     private String nom;
     private String categorie;
+    @Basic
     private LocalDateTime date;
 
     @ManyToOne
@@ -21,10 +22,10 @@ public class Post {
 
     public Post() {}
 
-    public Post(String nom, String categorie, LocalDateTime date, Association association) {
+    public Post(String nom, String categorie, Association association) {
         this.nom = nom;
         this.categorie = categorie;
-        this.date = date;
+        this.date = LocalDateTime.now();
         this.association = association;
     }
 
