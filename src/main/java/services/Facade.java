@@ -64,6 +64,14 @@ public class Facade {
        return member.getContact();
    }
 
+   public Association getMyAssociation(String login){
+        try {
+            Member member = em.find(Member.class, findIdByLogin(login));
+            return member.getAssociation();
+        } catch (Exception exception){
+            return null;
+        }
+   }
    public List<Association> getAllAssociations() {
         Query q = em.createQuery("select a from Association a");
         return q.getResultList();
