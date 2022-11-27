@@ -46,14 +46,16 @@ public class Facade {
 
    @Transactional
    public Member createUser(String login,String password, boolean isContact) throws UserAllreadyExistsException {
-       Member member=em.find(Member.class,findIdByLogin(login));
-        if (member!=null) {
-            throw new UserAllreadyExistsException();
-        }
-       member =new Member(login,password,isContact);
-        em.persist(member);
-        return member;
-   }
+        try {
+            findIdByLogin(login);
+        } catch(Exception exception){
+            Member member = new Member(login, password, isContact);
+            em.persist(member);
+            return member;
+            }
+        throw new UserAllreadyExistsException();
+
+    }
 
    public Member retrieveUser(int id) {
         return em.find(Member.class,id);

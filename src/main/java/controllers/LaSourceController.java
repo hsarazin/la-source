@@ -65,7 +65,11 @@ public class LaSourceController {
 
         model.addAttribute("courant", login);
         model.addAttribute("username", login);
-        model.addAttribute("my_association",facade.getMyAssociation(login).getNom());
+
+        Association my_association = facade.getMyAssociation(login);
+        if(my_association!=null) {
+            model.addAttribute("my_association", my_association.getNom());
+        }
         addElemIfContact(model, memberDto.getLogin());
         return "welcome";
     }
@@ -94,7 +98,10 @@ public class LaSourceController {
     public String fragment(String fragment, Model model, @SessionAttribute String courant){
         model.addAttribute("fragment", fragment);
         model.addAttribute("username",courant);
-        model.addAttribute("my_association",facade.getMyAssociation(courant).getNom());
+        Association my_association = facade.getMyAssociation(courant);
+        if(my_association!=null) {
+            model.addAttribute("my_association", my_association.getNom());
+        }
         model.addAttribute("posts", facade.getAllPost());
         model.addAttribute("associations", facade.getAllAssociations());
         return "welcome";
