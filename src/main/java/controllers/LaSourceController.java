@@ -42,7 +42,7 @@ public class LaSourceController {
             if(my_association!=null) {
                 model.addAttribute("my_association", my_association.getNom());
             }
-            addElemIfContact(model, memberDto.getLogin());
+            addElemIfContact(model, login);
             return "welcome";
         } else {
             // on crée à la volée un "ObjectError" : erreur globale dans l'objet (ici l'objet c'est l'instance de user où transitent les infos de login)
@@ -70,7 +70,7 @@ public class LaSourceController {
         if(my_association!=null) {
             model.addAttribute("my_association", my_association.getNom());
         }
-        addElemIfContact(model, memberDto.getLogin());
+        addElemIfContact(model, login);
         return "welcome";
     }
 
@@ -102,8 +102,7 @@ public class LaSourceController {
         if(my_association!=null) {
             model.addAttribute("my_association", my_association.getNom());
         }
-        model.addAttribute("posts", facade.getAllPost());
-        model.addAttribute("associations", facade.getAllAssociations());
+        addElemIfContact(model, courant);
         return "welcome";
     }
 

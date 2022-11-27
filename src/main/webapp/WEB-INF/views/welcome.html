@@ -19,30 +19,38 @@
 
 
             <h2>
-                <span th:text="${my_association} ? 'membre de '+${my_association}: 'Membre d\'aucune association pour le moment'"/>
+                <span th:text="${my_association} ? (${contact} ? 'Personne contact de '+${my_association}:'Membre de '+${my_association}): 'Membre d\'aucune association pour le moment'"/>
             </h2>
 
-            <form th:action="@{/fragment}">
-                <div style="justify-content: space-around;text-align: center">
-                    <button type="submit" th:name="fragment" th:value="post">Lister les offres</button>
+            <th:block th:if="${my_association}">
+                <form th:action="@{/fragment}">
+                    <div style="justify-content: space-around;text-align: center">
+                        <button type="submit" th:name="fragment" th:value="post">Lister les offres</button>
 
-                    <button type="submit" th:name="fragment" th:value="association">Lister les associations</button>
+                        <button type="submit" th:name="fragment" th:value="association">Lister les associations</button>
 
-                    <button type="submit">Voir les demandes</button>
-                <div/>
-            </form>
-            <th:block th:if="${fragment} == 'post'">
-                <div th:insert="posts :: post"></div>
+                        <th:block th:if="${contact}">
+                            <button type="submit">Voir les demandes</button>
+                        </th:block>
+                        <div/>
+                </form>
+                <th:block th:if="${fragment} == 'post'">
+                    <div th:insert="posts :: post"></div>
+                </th:block>
+
+                <th:block th:if="${fragment} == 'association'">
+                    <div th:insert="associations :: association"></div>
+                </th:block>
+            </th:block>
+            <th:block th:if="!${my_association}">
+                <h2>Il faut être dans une association pour voir les offres...</h2>
             </th:block>
 
-            <th:block th:if="${fragment} == 'association'">
-                <div th:insert="associations :: association"></div>
-            </th:block>
 
 
             <div style="margin-top: 10%">
                 <form>
-                    <button type="submit" value="Submit" th:formaction="@{/logout}">se deconnecter</button>
+                    <button type="submit" value="Submit" th:formaction="@{/logout}">se déconnecter</button>
                 </form>
             </div>
 
