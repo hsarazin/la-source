@@ -11,7 +11,7 @@
 
     <p>Password: <input type="password" th:field="*{password}" minlength="3"/></p>
     <!--/* on s'amuse avec un second bouton... */-->
-    <p><button type="submit" value="Submit" /> Envoyer</button>   <button type="submit" value="Submit" th:formaction="@{/register}"/> S'incrire</button></p>
+    <p><button type="submit" value="Submit" /> Se connecter</button>   <button type="submit" value="Submit" th:formaction="@{/register}"/> S'incrire</button></p>
 
 
     <div th:if="${#fields.hasErrors('global')}">
