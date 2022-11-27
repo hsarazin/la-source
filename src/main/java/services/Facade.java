@@ -22,7 +22,6 @@ public class Facade {
         // On va maintenant chercher l'utilisateur dans la BD à partir du login
         try {
             Member member = em.find(Member.class, findIdByLogin(login));
-            System.out.println(member);
             if (member == null) {
                 return false;
             } else {
