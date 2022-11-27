@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="https://www.thymeleaf.org">
 <body>
-<div th:fragment="post">
+<div th:fragment="post" style="justify-content: space-around;text-align: center">
     <form th:action="@{/demande}">
-        <table>
-            <tr  th:each="post : ${posts}">
+        <table style="margin: 0 auto; justify-content: center">
+            <tr  th:each="post : ${posts}" style="justify-content: space-around;text-align: center">
                 <td th:text="${post.nom}"></td>
                 <td th:text="${post.categorie}"></td>
             </tr>

@@ -3,38 +3,49 @@
     <head>
         <meta charset="utf-8">
         <title>Bienvenue</title>
+        <style>
+            .center-div {
+                margin: 0 auto;
+                width: 50vw;
+            }
+
+        </style>
     </head>
-    <body>
-        <h1>
-            Bonjour <span th:text="${username}" />
-        </h1>
+    <body class="center-div">
+        <div style="justify-content: space-around;text-align: center">
+            <h1>
+                Bonjour <span th:text="${username}" />
+            </h1>
 
 
-        <h2>
-            <span th:text="${my_association} ? 'membre de '+${my_association}: 'Membre d\'aucune association pour le moment'"/>
-        </h2>
+            <h2>
+                <span th:text="${my_association} ? 'membre de '+${my_association}: 'Membre d\'aucune association pour le moment'"/>
+            </h2>
 
-        <form th:action="@{/fragment}">
-            <div>
-                <button type="submit" th:name="fragment" th:value="post">Lister les offres</button>
+            <form th:action="@{/fragment}">
+                <div style="justify-content: space-around;text-align: center">
+                    <button type="submit" th:name="fragment" th:value="post">Lister les offres</button>
 
-                <button type="submit" th:name="fragment" th:value="association">Lister les associations</button>
+                    <button type="submit" th:name="fragment" th:value="association">Lister les associations</button>
 
-                <button type="submit">Voir les demandes</button>
-            <div/>
-        </form>
-        <th:block th:if="${fragment} == 'post'">
-            <div th:insert="posts :: post"></div>
-        </th:block>
+                    <button type="submit">Voir les demandes</button>
+                <div/>
+            </form>
+            <th:block th:if="${fragment} == 'post'">
+                <div th:insert="posts :: post"></div>
+            </th:block>
 
-        <th:block th:if="${fragment} == 'association'">
-            <div th:insert="associations :: association"></div>
-        </th:block>
+            <th:block th:if="${fragment} == 'association'">
+                <div th:insert="associations :: association"></div>
+            </th:block>
 
 
-        <form>
-            <button type="submit" value="Submit" th:formaction="@{/logout}">se deconnecter</button>
-        </form>
+            <div style="margin-top: 10%">
+                <form>
+                    <button type="submit" value="Submit" th:formaction="@{/logout}">se deconnecter</button>
+                </form>
+            </div>
 
+        </div>
     </body>
 </html>

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="https://www.thymeleaf.org">
 <body>
-<div th:fragment="association">
+<div th:fragment="association" style="justify-content: space-around;text-align: center">
     <form>
-        <table>
+        <table style="margin: 0 auto; justify-content: center">
             <tr  th:each="association : ${associations}">
                 <td th:text="${association.nom}"></td>
             </tr>
