@@ -13,8 +13,8 @@ public class Association {
     @OneToOne
     private Member contactMember;
 
-    @OneToMany
-    private List<Member> members;
+    @OneToMany(cascade = {CascadeType.ALL})
+    private List<Member> members = new java.util.ArrayList<>();
 
     @OneToMany
     private List<Post> posts;

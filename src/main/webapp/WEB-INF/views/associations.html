@@ -4,14 +4,14 @@
 <div th:fragment="association" style="justify-content: space-around;text-align: center">
     <form>
         <table style="margin: 0 auto; justify-content: center">
-            <ul style="list-style-type: none" th:each="association : ${associations}">
-                <li>
-                    <span th:text="${association.nom}"/>
-                    <th:block th:if="not ${my_association}">
-                        <button class="btn btn-outline-info" >rejoindre</button>
-                    </th:block>
-                </li>
-            </ul>
+                <ul style="list-style-type: none" th:each="association : ${associations}">
+                    <li>
+                        <span th:text="${association.nom}"/>
+                        <th:block th:if="not ${my_association}">
+                            <button class="btn btn-outline-info" th:formaction="@{/join}" th:name="association_id" th:value="${association.id}" >rejoindre</button>
+                        </th:block>
+                    </li>
+                </ul>
         </table>
     </form>
 </div>

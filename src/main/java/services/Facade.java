@@ -32,6 +32,7 @@ public class Facade {
         }
    }
 
+
    public int findIdByLogin(String login) {
         // On va chercher l'id de la personne a partir du login
        try {
@@ -54,6 +55,13 @@ public class Facade {
             }
         throw new UserAllreadyExistsException();
 
+    }
+
+    @Transactional
+    public void joinAssociation(String login, int association_id){
+        Association association = em.find(Association.class,association_id);
+        Member member = retrieveUser(findIdByLogin(login));
+        member.setAssociation(association);
     }
 
    public Member retrieveUser(int id) {

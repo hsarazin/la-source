@@ -30,20 +30,24 @@ public class LaSourceController {
         return("login");
     }
 
+    public String loadWelcome(String login, Model model){
+        Association my_association = facade.getMyAssociation(login);
+        model.addAttribute("courant",login);
+        model.addAttribute("username",login);
+        if(my_association!=null) {
+            model.addAttribute("my_association", my_association.getNom());
+        }
+        addElemIfContact(model, login);
+        return "welcome";
+    }
+
     @PostMapping("login")
     public String checkLP(MemberDto memberDto, BindingResult result, Model model){
         if (facade.checkLP(memberDto.getLogin(), memberDto.getPassword())) {
             // on place courant dans le modèle, mais il s'agit d'un attribut de session, il se retrouve ainsi conservé en session
 
             String login = memberDto.getLogin();
-            Association my_association = facade.getMyAssociation(login);
-            model.addAttribute("courant", login);
-            model.addAttribute("username", login);
-            if(my_association!=null) {
-                model.addAttribute("my_association", my_association.getNom());
-            }
-            addElemIfContact(model, login);
-            return "welcome";
+            return loadWelcome(login,model);
         } else {
             // on crée à la volée un "ObjectError" : erreur globale dans l'objet (ici l'objet c'est l'instance de user où transitent les infos de login)
             result.addError(new ObjectError("user","Les informations saisies ne correspondent pas à un utilisateur connu."));
@@ -63,15 +67,7 @@ public class LaSourceController {
         }
         String login = memberDto.getLogin();
 
-        model.addAttribute("courant", login);
-        model.addAttribute("username", login);
-
-        Association my_association = facade.getMyAssociation(login);
-        if(my_association!=null) {
-            model.addAttribute("my_association", my_association.getNom());
-        }
-        addElemIfContact(model, login);
-        return "welcome";
+        return loadWelcome(login,model);
     }
 
     @RequestMapping("logout")
@@ -97,13 +93,13 @@ public class LaSourceController {
     @RequestMapping("fragment")
     public String fragment(String fragment, Model model, @SessionAttribute String courant){
         model.addAttribute("fragment", fragment);
-        model.addAttribute("username",courant);
-        Association my_association = facade.getMyAssociation(courant);
-        if(my_association!=null) {
-            model.addAttribute("my_association", my_association.getNom());
-        }
-        addElemIfContact(model, courant);
-        return "welcome";
+        return loadWelcome(courant,model);
+    }
+
+    @RequestMapping("join")
+    public String join(int association_id, Model model, @SessionAttribute String courant){
+        facade.joinAssociation(courant, association_id);
+        return loadWelcome(courant,model);
     }
 
     @RequestMapping("demande")
