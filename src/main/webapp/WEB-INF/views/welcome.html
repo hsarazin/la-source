@@ -3,34 +3,40 @@
     <head>
         <meta charset="utf-8">
         <title>Bienvenue</title>
-        <style>
-            .center-div {
-                margin: 0 auto;
-                width: 50vw;
-            }
-
-        </style>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     </head>
-    <body class="center-div">
-        <div style="justify-content: space-around;text-align: center">
-            <h1>
-                Bonjour <span th:text="${username}" />
-            </h1>
+    <body class="container-fluid" style="margin-top: 5%">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1>
+                        Bonjour <span th:text="${username}" />
+                        <th:block th:if="${contact}">
+                            <span class="badge badge-pill badge-success" th:text="${my_association}" />
+                        </th:block>
+                        <th:block th:if="${my_association} and not ${contact}">
+                            <span class="badge badge-pill badge-info" th:text="${my_association}" />
+                        </th:block>
+                        <th:block th:unless="${my_association}">
+                            <span class="badge badge-pill badge-danger" th:text="'Aucune association'" />
+                        </th:block>
+                    </h1>
+                </div>
+            </div>
 
 
-            <h2>
-                <span th:text="${my_association} ? (${contact} ? 'Personne contact de '+${my_association}:'Membre de '+${my_association}): 'Membre d\'aucune association pour le moment'"/>
-            </h2>
 
-            <th:block th:if="${my_association}">
                 <form th:action="@{/fragment}">
                     <div style="justify-content: space-around;text-align: center">
-                        <button type="submit" th:name="fragment" th:value="post">Lister les offres</button>
 
-                        <button type="submit" th:name="fragment" th:value="association">Lister les associations</button>
+                        <th:block th:if="${my_association}">
+                            <button  class="btn btn-outline-dark" type="submit" th:name="fragment" th:value="post">Lister les offres</button>
+                        </th:block>
+
+                        <button class="btn btn-outline-dark" type="submit" th:name="fragment" th:value="association">Lister les associations</button>
 
                         <th:block th:if="${contact}">
-                            <button type="submit">Voir les demandes</button>
+                            <button class="btn btn-outline-dark" type="submit">Voir les demandes</button>
                         </th:block>
                         <div/>
                 </form>
@@ -42,15 +48,12 @@
                     <div th:insert="associations :: association"></div>
                 </th:block>
             </th:block>
-            <th:block th:if="!${my_association}">
-                <h2>Il faut être dans une association pour voir les offres...</h2>
-            </th:block>
 
 
 
             <div style="margin-top: 10%">
                 <form>
-                    <button type="submit" value="Submit" th:formaction="@{/logout}">se déconnecter</button>
+                    <button class="btn btn-outline-danger col-md-4" type="submit" value="Submit" th:formaction="@{/logout}">se déconnecter</button>
                 </form>
             </div>
 
