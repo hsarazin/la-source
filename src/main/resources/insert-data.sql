@@ -1,5 +1,5 @@
 -- ATTENTION : Bien penser aux quotes simples pour les valeurs de type chaines...
-insert into ASSOCIATION (NOM) values('wwf'),('greenpeace');
+insert into ASSOCIATION (NOM) values('WWF'),('Greenpeace');
 
 insert into MEMBER (LOGIN,PASSWORD,ISCONTACT,ASSOCIATION_ID) values('alice','alice','false',null),('bob','bob','true',1),('serge','serge','false',2);
 
