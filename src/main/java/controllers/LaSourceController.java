@@ -102,6 +102,12 @@ public class LaSourceController {
         return loadWelcome(courant,model);
     }
 
+    @RequestMapping("leave")
+    public String leave(Model model, @SessionAttribute String courant){
+        facade.leaveAssociation(courant);
+        return loadWelcome(courant,model);
+    }
+
     @RequestMapping("demande")
     public String demandePost(@SessionAttribute String courant, PostDto postDto){
         System.out.println(postDto.getNom());

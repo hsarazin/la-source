@@ -64,6 +64,12 @@ public class Facade {
         member.setAssociation(association);
     }
 
+    @Transactional
+    public void leaveAssociation(String login){
+        Member member = retrieveUser(findIdByLogin(login));
+        member.setAssociation(null);
+    }
+
    public Member retrieveUser(int id) {
         return em.find(Member.class,id);
    }

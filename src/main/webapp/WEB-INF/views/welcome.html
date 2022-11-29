@@ -33,25 +33,33 @@
                             <button  class="btn btn-outline-dark" type="submit" th:name="fragment" th:value="post">Lister les offres</button>
                         </th:block>
 
-                        <button class="btn btn-outline-dark" type="submit" th:name="fragment" th:value="association">Lister les associations</button>
+
+                        <th:block th:if="${my_association} and not ${contact}">
+                            <button class="btn btn-dark" type="submit" value="Submit" th:formaction="@{/leave}">Quitter l'association</button>
+                        </th:block>
+
+                        <th:block th:unless="${my_association}">
+                            <button class="btn btn-outline-dark" type="submit" th:name="fragment" th:value="association">Lister les associations</button>
+                        </th:block>
 
                         <th:block th:if="${contact}">
                             <button class="btn btn-outline-dark" type="submit">Voir les demandes</button>
                         </th:block>
-                        <div/>
+                    </div>
                 </form>
+
                 <th:block th:if="${fragment} == 'post'">
                     <div th:insert="posts :: post"></div>
                 </th:block>
 
-                <th:block th:if="${fragment} == 'association'">
-                    <div th:insert="associations :: association"></div>
+                    <th:block th:if="${fragment} == 'association'">
+                        <div th:insert="associations :: association"></div>
                 </th:block>
             </th:block>
 
 
 
-            <div style="margin-top: 10%">
+            <div style="margin-top: 10%;justify-content: space-around;text-align: center">
                 <form>
                     <button class="btn btn-outline-danger col-md-4" type="submit" value="Submit" th:formaction="@{/logout}">se déconnecter</button>
                 </form>
