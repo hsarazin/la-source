@@ -3,6 +3,7 @@ package services;
 import entities.Association;
 import entities.Member;
 import entities.Post;
+import exceptions.AssociationAlreadyExistException;
 import exceptions.UserAllreadyExistsException;
 import org.springframework.stereotype.Service;
 
@@ -58,6 +59,23 @@ public class Facade {
     }
 
     @Transactional
+    public Association createAssociation(String login, String association_nom) throws AssociationAlreadyExistException{
+        try{
+            Association association =  getAssociation(association_nom);
+        } catch(Exception exception) {
+            Member member = em.find(Member.class, findIdByLogin(login));
+            Association association = new Association(association_nom, member);
+            em.persist(association);
+            member.setContact(true);
+            member.setAssociation(association);
+            System.out.println(association);
+            return association;
+        }
+        throw new AssociationAlreadyExistException();
+
+    }
+
+    @Transactional
     public void joinAssociation(String login, int association_id){
         Association association = em.find(Association.class,association_id);
         Member member = retrieveUser(findIdByLogin(login));
@@ -87,6 +105,16 @@ public class Facade {
             return null;
         }
    }
+   public Association getAssociation(String nom) {
+        try{
+            Query q = em.createQuery("select a from Association a where a.nom=:n").setParameter("n",nom);
+            return (Association) q.getSingleResult();
+        } catch (Exception exception){
+            System.out.println(exception);
+            throw exception;
+        }
+   }
+
    public List<Association> getAllAssociations() {
         Query q = em.createQuery("select a from Association a");
         return q.getResultList();

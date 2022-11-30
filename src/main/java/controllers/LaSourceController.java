@@ -1,9 +1,11 @@
 package controllers;
 
+import dtos.AssociationDto;
 import dtos.MemberDto;
 import dtos.PostDto;
 import entities.Association;
 import entities.Member;
+import exceptions.AssociationAlreadyExistException;
 import exceptions.UserAllreadyExistsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -93,6 +95,7 @@ public class LaSourceController {
     @RequestMapping("fragment")
     public String fragment(String fragment, Model model, @SessionAttribute String courant){
         model.addAttribute("fragment", fragment);
+        model.addAttribute(new AssociationDto());
         return loadWelcome(courant,model);
     }
 
@@ -102,11 +105,25 @@ public class LaSourceController {
         return loadWelcome(courant,model);
     }
 
+    @RequestMapping("association/create")
+    public String createAssociation(AssociationDto associationDto, BindingResult result, Model model, @SessionAttribute String courant){
+        try {
+            System.out.println(associationDto.getNom());
+            Association association =  facade.createAssociation(courant,associationDto.getNom());
+            System.out.println(association);
+        } catch (AssociationAlreadyExistException e) {
+        result.addError(new ObjectError("nom","Cette association existe déjà !"));
+        model.addAttribute(new AssociationDto());
+        }
+        return loadWelcome(courant, model);
+    }
+
     @RequestMapping("leave")
     public String leave(Model model, @SessionAttribute String courant){
         facade.leaveAssociation(courant);
         return loadWelcome(courant,model);
     }
+
 
     @RequestMapping("demande")
     public String demandePost(@SessionAttribute String courant, PostDto postDto){

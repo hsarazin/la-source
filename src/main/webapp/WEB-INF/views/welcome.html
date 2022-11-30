@@ -40,6 +40,7 @@
 
                         <th:block th:unless="${my_association}">
                             <button class="btn btn-outline-dark" type="submit" th:name="fragment" th:value="association">Lister les associations</button>
+                            <button class="btn btn-info" type="submit" th:name="fragment" th:value="create_association">Créer une association</button>
                         </th:block>
 
                         <th:block th:if="${contact}">
@@ -52,8 +53,29 @@
                     <div th:insert="posts :: post"></div>
                 </th:block>
 
-                    <th:block th:if="${fragment} == 'association'">
-                        <div th:insert="associations :: association"></div>
+                <th:block th:if="${fragment} == 'association'">
+                    <div th:insert="associations :: association"></div>
+                </th:block>
+
+                <th:block th:if="${fragment} == 'create_association'">
+                    <form action="#" th:action="@{/association/create}" th:object="${associationDto}" method="post">
+                        <div class="row">
+                            <div class="col-md-3">
+                                Nom de l'association
+                            </div>
+                            <input class="col-md-8" type="text" th:field="*{nom}" minlength="3" autofocus/>
+                        </div>
+
+                        <div class="row" style="margin-top: 20px">
+                            <button class="col-md-4 btn btn-outline-success" type="submit" value="Submit"/>
+                            Créer l'association
+                            </button>
+                        </div>
+
+                        <div class="row" th:if="${#fields.hasErrors('global')}">
+                            <p style="color: red;" th:each="err : ${#fields.errors('global')}" th:text="${err}" />
+                        </div>
+                    </form>
                 </th:block>
             </th:block>
 
