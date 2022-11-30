@@ -30,21 +30,21 @@
                     <div style="justify-content: space-around;text-align: center">
 
                         <th:block th:if="${my_association}">
-                            <button  class="btn btn-outline-dark" type="submit" th:name="fragment" th:value="post">Lister les offres</button>
+                            <button  class="btn btn-outline-dark col-md-2" type="submit" th:name="fragment" th:value="post">Lister les offres</button>
                         </th:block>
 
 
                         <th:block th:if="${my_association} and not ${contact}">
-                            <button class="btn btn-dark" type="submit" value="Submit" th:formaction="@{/leave}">Quitter l'association</button>
+                            <button class="btn btn-dark col-md-2" type="submit" value="Submit" th:formaction="@{/leave}">Quitter l'association</button>
                         </th:block>
 
                         <th:block th:unless="${my_association}">
-                            <button class="btn btn-outline-dark" type="submit" th:name="fragment" th:value="association">Lister les associations</button>
-                            <button class="btn btn-info" type="submit" th:name="fragment" th:value="create_association">Créer une association</button>
+                            <button class="btn btn-outline-dark col-md-2" type="submit" th:name="fragment" th:value="association">Lister les associations</button>
+                            <button class="btn btn-info col-md-2" type="submit" th:name="fragment" th:value="create_association">Créer une association</button>
                         </th:block>
 
                         <th:block th:if="${contact}">
-                            <button class="btn btn-outline-dark" type="submit">Voir les demandes</button>
+                            <button class="btn btn-outline-dark col-md-2" type="submit">Voir les demandes</button>
                         </th:block>
                     </div>
                 </form>
@@ -54,6 +54,9 @@
                 </th:block>
 
                 <th:block th:if="${fragment} == 'association'">
+                    <h3 style="text-align: center; font-style: italic; margin-top: 20px">
+                        Vous pouvez rejoindre les associations ci-dessous
+                    </h3>
                     <div th:insert="associations :: association"></div>
                 </th:block>
 
