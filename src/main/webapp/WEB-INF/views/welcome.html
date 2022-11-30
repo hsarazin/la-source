@@ -58,7 +58,8 @@
                 </th:block>
 
                 <th:block th:if="${fragment} == 'create_association'">
-                    <form action="#" th:action="@{/association/create}" th:object="${associationDto}" method="post">
+                    <form action="#" th:action="@{/association/create}" th:object="${associationDto}" method="post"
+                    style="margin-top: 20px">
                         <div class="row">
                             <div class="col-md-3">
                                 Nom de l'association
@@ -67,7 +68,7 @@
                         </div>
 
                         <div class="row" style="margin-top: 20px">
-                            <button class="col-md-4 btn btn-outline-success" type="submit" value="Submit"/>
+                            <button class="col-md-12 btn btn-outline-success" type="submit" value="Submit"/>
                             Créer l'association
                             </button>
                         </div>

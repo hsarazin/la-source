@@ -85,7 +85,9 @@ public class Facade {
     @Transactional
     public void leaveAssociation(String login){
         Member member = retrieveUser(findIdByLogin(login));
-        member.setAssociation(null);
+        if (!member.getContact()) {
+            member.setAssociation(null);
+        }
     }
 
    public Member retrieveUser(int id) {
