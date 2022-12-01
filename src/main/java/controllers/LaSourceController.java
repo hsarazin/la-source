@@ -131,12 +131,8 @@ public class LaSourceController {
     public String demandePost(PostDto postDto, @SessionAttribute String courant, Model model){
         System.out.println("coucou0");
         Post post = new Post(postDto.getNom(), postDto.getCategorie(), postDto.getAssociation());
-        System.out.println("coucou1");
-        /**Member contact = facade.getMyContact(courant);
-        System.out.println("contact =" + contact.getLogin());
+        Member contact = facade.getMyContact(courant);
         contact.getDemande().add(post);
-        System.out.println("coucou2");
-        System.out.println("Le contact a maintenant comme demandes" + contact.getDemande());**/
         loadWelcome(courant,model);
         return "welcome";
     }

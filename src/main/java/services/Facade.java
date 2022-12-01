@@ -106,10 +106,9 @@ public class Facade {
         if(association.getContactMember()!=null){
             return association.getContactMember();
         }
-       System.out.println(association.getNom());
-        Query q = em.createQuery("select c from Member c where c.isContact and :a = c.association.nom ").setParameter("a", association.getNom());
-        System.out.println((Member) q.getSingleResult());
-        return (Member) q;
+        System.out.println(association.getNom());
+        Query q = em.createQuery("select c from Member c where c.association.nom like :a and c.isContact = TRUE ").setParameter("a", association.getNom());
+        return (Member) q.getSingleResult();
    }
 
    public Association getMyAssociation(String login){

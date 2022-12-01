@@ -17,7 +17,7 @@ public class Post {
     @ManyToOne
     private Association association;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<Member> demands;
 
     public Post() {}

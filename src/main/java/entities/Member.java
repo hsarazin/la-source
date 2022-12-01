@@ -17,10 +17,10 @@ public class Member {
     @ManyToOne
     private Association association;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<Post> demande;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<Post> valide;
 
     public Member(){}
