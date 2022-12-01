@@ -48,12 +48,15 @@
                         </th:block>
 
                         <th:block th:if="${contact}">
-                            <button class="btn btn-outline-dark col-md-2" type="submit">Voir les demandes</button>
+                            <button class="btn btn-outline-dark col-md-2" type="submit" th:name="fragment" th:value="demande">Voir les demandes</button>
                         </th:block>
                     </div>
                 </form>
 
             <div th:switch="${fragment}">
+                <div th:case="'demande'">
+                    <div th:insert="demandes :: demande"></div>
+                </div>
                 <div th:case="'post'">
                     <div th:insert="posts :: post"></div>
                 </div>

@@ -129,10 +129,25 @@ public class LaSourceController {
 
     @RequestMapping("demande")
     public String demandePost(PostDto postDto, @SessionAttribute String courant, Model model){
-        System.out.println("coucou0");
         Post post = new Post(postDto.getNom(), postDto.getCategorie(), postDto.getAssociation());
         Member contact = facade.getMyContact(courant);
         contact.getDemande().add(post);
+        /**
+         * Ligne 1 me renvoie rien, les demandes n'existent plus en dehors de cette fonction
+         * Ligne 2 me renvoie bien ce que j'attend, les demandes existent dans cette fonction
+         */
+        System.out.println("test" + facade.getAllDemands(contact.getLogin()));
+        System.out.println("test2" + contact.getDemande());
+        loadWelcome(courant,model);
+        return "welcome";
+    }
+
+    @RequestMapping("valider")
+    public String validerPost(PostDto postDto, @SessionAttribute String courant, Model model){
+        /**Post post = new Post(postDto.getNom(), postDto.getCategorie(), postDto.getAssociation());
+        Member contact = facade.getMyContact(courant);
+        contact.getDemande().add(post);
+        loadWelcome(courant,model);*/
         loadWelcome(courant,model);
         return "welcome";
     }
@@ -141,5 +156,6 @@ public class LaSourceController {
         model.addAttribute("contact", facade.getIsContact(courant));
         model.addAttribute("posts", facade.getAllPost());
         model.addAttribute("associations", facade.getAllAssociations());
+        model.addAttribute("demandes", facade.getAllDemands(courant));
     }
 }

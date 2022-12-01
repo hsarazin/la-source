@@ -157,4 +157,10 @@ public class Facade {
     }
 
 
+    public List<Post> getAllDemands(String login) {
+        Member member = em.find(Member.class,findIdByLogin(login));
+        System.out.println(member.getLogin());
+        System.out.println(member.getDemande());
+        return member.getDemande();
+    }
 }

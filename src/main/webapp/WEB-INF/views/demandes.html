@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<body>
+<div th:fragment="demande" style="justify-content: space-around;text-align: center">
+  <table style="margin: 0 auto; justify-content: center">
+    <tr  th:each="post : ${demandes}" style="justify-content: space-around;text-align: center">
+      <form th:action="@{/valider}" th:object="${postDto}">
+        <td th:text="${post.nom}"></td>
+        <td th:text="${post.categorie}"></td>
+        <input type="hidden" th:value="${post.nom}" name="nom"/>
+        <input type="hidden" th:value="${post.categorie}" name="categorie"/>
+        <button type="submit">Valider</button>
+
+      </form>
+    </tr>
+  </table>
+  <p>Coucou2</p>
+</div>
+</body>
+</html>
