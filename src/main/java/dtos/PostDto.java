@@ -9,6 +9,8 @@ public class PostDto {
     private String nom;
     private String categorie;
 
+    private Association association;
+
     public PostDto() {}
 
     public String getNom() {
@@ -25,5 +27,13 @@ public class PostDto {
 
     public String getCategorie() {
         return categorie;
+    }
+
+    public Association getAssociation() {
+        return association;
+    }
+
+    public void setAssociation(Association association) {
+        this.association = association;
     }
 }

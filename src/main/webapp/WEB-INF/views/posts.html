@@ -2,14 +2,18 @@
 <html xmlns:th="https://www.thymeleaf.org">
 <body>
 <div th:fragment="post" style="justify-content: space-around;text-align: center">
-    <form th:action="@{/demande}">
         <table style="margin: 0 auto; justify-content: center">
             <tr  th:each="post : ${posts}" style="justify-content: space-around;text-align: center">
-                <td th:text="${post.nom}"></td>
-                <td th:text="${post.categorie}"></td>
+                <form th:action="@{/demande}" th:object="${postDto}">
+                    <td th:text="${post.nom}"></td>
+                    <td th:text="${post.categorie}"></td>
+                    <input type="hidden" th:value="${post.nom}" name="nom"/>
+                    <input type="hidden" th:value="${post.categorie}" name="categorie"/>
+
+                    <button type="submit">Request</button>
+                </form>
             </tr>
         </table>
-    </form>
 </div>
 </body>
 </html>

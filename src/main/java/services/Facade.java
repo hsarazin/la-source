@@ -66,9 +66,11 @@ public class Facade {
             Member member = em.find(Member.class, findIdByLogin(login));
             Association association = new Association(association_nom, member);
             em.persist(association);
+            association.setContactMember(member);
             member.setContact(true);
             member.setAssociation(association);
             System.out.println(association);
+            System.out.println("la nouvelle asso est: " + member.getAssociation());
             return association;
         }
         throw new AssociationAlreadyExistException();
@@ -97,6 +99,17 @@ public class Facade {
    public boolean getIsContact(String login) {
        Member member=em.find(Member.class,findIdByLogin(login));
        return member.getContact();
+   }
+
+   public Member getMyContact(String login){
+        Association association = getMyAssociation(login);
+        if(association.getContactMember()!=null){
+            return association.getContactMember();
+        }
+       System.out.println(association.getNom());
+        Query q = em.createQuery("select c from Member c where c.isContact and :a = c.association.nom ").setParameter("a", association.getNom());
+        System.out.println((Member) q.getSingleResult());
+        return (Member) q;
    }
 
    public Association getMyAssociation(String login){
