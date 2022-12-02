@@ -146,7 +146,9 @@ public class Facade {
 
    public List<Post> getAllPost(){
         Query q = em.createQuery("select p from Post p");
-        return q.getResultList();
+        List<Post> posts = q.getResultList();
+       System.out.println(posts);
+        return posts;
    }
 
    public List<Post> getALlPostExcept(Post post){
@@ -165,6 +167,10 @@ public class Facade {
     public void addPost(int post_id, int member_id){
         Member member = em.find(Member.class, member_id);
         Post post = em.find(Post.class, post_id);
+        List<Post> demandes = member.getDemande();
+        if(demandes.contains(post)){
+            return;
+        }
         List<Post> posts = member.addDemande(post);
         System.out.println("posts" + posts);
         System.out.println("Facade :" + member.getDemande());

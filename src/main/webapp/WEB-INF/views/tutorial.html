@@ -1,27 +1,34 @@
 <!DOCTYPE html>
 <html xmlns:th="https://www.thymeleaf.org">
 <body>
-<div th:fragment="tutorial" style="justify-content: space-around;text-align: center; margin: 2em;">
-    <div class="container" style="width: auto; height: 50vh; background-color: darkgrey; border-radius: 2em; color:lightgrey">
+<div th:fragment="tutorial" style="justify-content: space-around;text-align: center; margin-top: 20px">
+    <div class="container" style="width: auto; height: 50vh; background-color: darkgrey; border-radius: 2em; color:lightgrey;background-blend-mode: darken">
         <h1>Comment ça marche ?</h1>
-        <div class="card text-dark bg-light" style="width: 18rem;">
-            <div class="card-body">
-                <h5 class="card-title">Je rejoins une association...</h5>
-                <p class="card-text">... en cliquant sur le bouton Rejoindre un association.</p>
+        <div class="row" style="justify-content: space-around; align-content: center;">
+            <div class="card text-white bg-info col-md-3">
+                <h5 class="card-header">Je rejoins une association...</h5>
+                <img class="card-img-top" src="https://thumb.canalplus.pro/http/unsafe/%7BresolutionXY%7D/filters:quality(%7BimageQualityPercentage%7D)/img-hapi.canalplus.pro:80/ServiceImage/ImageID/77903317" alt="Je rejoins une asso">
+                <div class="card-body">
+
+                    <p class="card-text">... en cliquant sur le bouton Rejoindre un association.</p>
+                </div>
+            </div>
+            <div class="card text-white bg-info col-md-3">
+                <h5 class="card-header">Je cherche le matériel dont j'ai besoin...</h5>
+                <img class="card-img-top" src="https://static.hitek.fr/img/up_m/534426584/20278396.png" alt="Je cherche du matos">
+                <div class="card-body">
+                    <p class="card-text">... grâce à la liste des offres, disponibles en Cliquant sur bouton Lister les offres.</p>
+                </div>
+            </div>
+            <div class="card text-white bg-info col-md-3">
+                <h5 class="card-header">Je fais une demande...</h5>
+                <img class="card-img-top" src="http://www.fat-box.net/wp-content/uploads/2010/11/onenagros_sanstexte.jpg" alt="Je fais une demande">
+                <div class="card-body">
+                    <p class="card-text">... et j'attends que la personne contact de mon association l'accepte.</p>
+                </div>
             </div>
         </div>
-        <div class="card text-dark bg-light" style="width: 18rem;">
-            <div class="card-body">
-                <h5 class="card-title">Je cherche le matériel dont j'ai besoin...</h5>
-                <p class="card-text">... grâce à la liste des offres, disponibles en Cliquant sur bouton Lister les offres.</p>
-            </div>
-        </div>
-        <div class="card text-dark bg-light" style="width: 18rem;">
-            <div class="card-body">
-                <h5 class="card-title">Je fais une demande...</h5>
-                <p class="card-text">... et j'attends que la personne contact de mon association l'accepte.</p>
-            </div>
-        </div>
+
     </div>
 
 </div>

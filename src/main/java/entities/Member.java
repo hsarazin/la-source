@@ -18,10 +18,9 @@ public class Member {
     private Association association;
 
     @ManyToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "demandes")
     private List<Post> demande;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    private List<Post> valide;
 
     public Member(){}
 
@@ -69,10 +68,6 @@ public class Member {
     public List<Post> getDemande() { return demande; }
 
     public void setDemande(List<Post> demande) { this.demande = demande; }
-
-    public List<Post> getValide() { return valide; }
-
-    public void setValide(List<Post> valide) { this.valide = valide; }
 
     public List<Post> addDemande(Post post){
         this.demande.add(post);

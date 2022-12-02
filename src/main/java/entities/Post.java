@@ -1,5 +1,7 @@
 package entities;
 
+import org.springframework.lang.Nullable;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -20,6 +22,12 @@ public class Post {
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Member> demands;
 
+    @Column(columnDefinition = "boolean default false")
+    private boolean valide;
+
+    @Column(columnDefinition = "boolean default false")
+    private boolean accepted;
+
     public Post() {}
 
     public Post(String nom, String categorie, Association association) {
@@ -27,6 +35,7 @@ public class Post {
         this.categorie = categorie;
         this.date = LocalDateTime.now();
         this.association = association;
+        this.valide= false;
     }
 
     public int getId() {
@@ -68,4 +77,12 @@ public class Post {
     public List<Member> getDemands(){ return demands; }
 
     public void setDemands(List<Member> demands) {this.demands = demands; }
+
+    public boolean isValide() {
+        return valide;
+    }
+
+    public void setValide(boolean valide) {
+        this.valide = valide;
+    }
 }
