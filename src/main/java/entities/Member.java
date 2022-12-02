@@ -73,4 +73,10 @@ public class Member {
     public List<Post> getValide() { return valide; }
 
     public void setValide(List<Post> valide) { this.valide = valide; }
+
+    public List<Post> addDemande(Post post){
+        this.demande.add(post);
+        System.out.println("from member "+ this.demande);
+        return this.demande;
+    }
 }

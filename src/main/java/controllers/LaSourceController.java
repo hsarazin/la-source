@@ -38,6 +38,8 @@ public class LaSourceController {
         Association my_association = facade.getMyAssociation(login);
         model.addAttribute("courant",login);
         model.addAttribute("username",login);
+        model.addAttribute("posts", facade.getAllPost());
+        model.addAttribute("demandes", facade.getAllDemands(login));
         if(my_association!=null) {
             model.addAttribute("my_association", my_association.getNom());
         }
@@ -129,17 +131,13 @@ public class LaSourceController {
 
     @RequestMapping("demande")
     public String demandePost(PostDto postDto, @SessionAttribute String courant, Model model){
-        Post post = new Post(postDto.getNom(), postDto.getCategorie(), postDto.getAssociation());
+        Post post = facade.getPost(postDto.getNom());
+        System.out.println("recherche" + post.getId());
         Member contact = facade.getMyContact(courant);
-        contact.getDemande().add(post);
-        /**
-         * Ligne 1 me renvoie rien, les demandes n'existent plus en dehors de cette fonction
-         * Ligne 2 me renvoie bien ce que j'attend, les demandes existent dans cette fonction
-         */
-        System.out.println("test" + facade.getAllDemands(contact.getLogin()));
-        System.out.println("test2" + contact.getDemande());
-        loadWelcome(courant,model);
-        return "welcome";
+        facade.addPost(post.getId(), contact.getId());
+        System.out.println("Facade from contoller" + facade.getAllDemands(contact.getLogin()));
+        System.out.println("Controller" + contact.getDemande());
+        return loadWelcome(courant,model);
     }
 
     @RequestMapping("valider")

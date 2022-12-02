@@ -139,6 +139,11 @@ public class Facade {
         return q.getResultList();
    }
 
+   public Post getPost(String post){
+        Query q = em.createQuery("select p from Post p where p.nom =:pnom").setParameter("pnom", post);
+        return (Post) q.getSingleResult();
+   }
+
    public List<Post> getAllPost(){
         Query q = em.createQuery("select p from Post p");
         return q.getResultList();
@@ -156,11 +161,18 @@ public class Facade {
         em.persist(p);
     }
 
+    @Transactional
+    public void addPost(int post_id, int member_id){
+        Member member = em.find(Member.class, member_id);
+        Post post = em.find(Post.class, post_id);
+        List<Post> posts = member.addDemande(post);
+        System.out.println("posts" + posts);
+        System.out.println("Facade :" + member.getDemande());
+    }
 
     public List<Post> getAllDemands(String login) {
         Member member = em.find(Member.class,findIdByLogin(login));
-        System.out.println(member.getLogin());
-        System.out.println(member.getDemande());
+        System.out.println("Facade getAllDemandes :" + member.getDemande());
         return member.getDemande();
     }
 }
