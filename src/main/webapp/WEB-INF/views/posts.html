@@ -2,18 +2,31 @@
 <html xmlns:th="https://www.thymeleaf.org">
 <body>
 <div th:fragment="post" style="justify-content: space-around;text-align: center">
-        <table style="margin: 0 auto; justify-content: center">
+        <div style="margin: 0 auto; justify-content: center">
+            <div class="row" style="justify-content: center; margin-top: 20px; font-weight: bold">
+                <span class="col-md-2">Nom</span>
+                <span class="col-md-2">Categorie</span>
+                <span class="col-md-2">Association</span>
+                <span class="col-md-3"></span>
+            </div>
             <tr  th:each="post : ${posts}" style="justify-content: space-around;text-align: center">
-                <form th:action="@{/demande}" th:object="${postDto}">
-                    <td th:text="${post.nom}"></td>
-                    <td th:text="${post.categorie}"></td>
-                    <input type="hidden" th:value="${post.nom}" name="nom"/>
-                    <input type="hidden" th:value="${post.categorie}" name="categorie"/>
+                <th:block  th:if="${post.association}">
+                    <form th:action="@{/demande}" th:object="${postDto}">
+                        <div class="row" style="justify-content: center; margin-top: 20px">
 
-                    <button type="submit">Request</button>
-                </form>
+                            <span class="col-md-2" th:text="${post.nom}" />
+                            <span class="col-md-2" th:text="${post.categorie}"/>
+                            <span class="col-md-2" th:text="${post.association}"/>
+                            <input type="hidden" th:value="${post.nom}" name="nom"/>
+                            <input type="hidden" th:value="${post.categorie}" name="categorie"/>
+
+                            <button class="btn btn-outline-dark col-md-3" type="submit">Request</button>
+                        </div>
+                    </form>
+                </th:block>
+
             </tr>
-        </table>
+        </div>
 </div>
 </body>
 </html>
