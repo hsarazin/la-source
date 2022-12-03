@@ -86,14 +86,22 @@ public class Facade {
         Member member = retrieveUser(findIdByLogin(login));
         member.setAssociation(association);
         association.addMember(member);
+        Member contact = association.getContactMember();
+        List<Post> demands = contact.getDemande();
+        for(Post demand: demands){
+            member.addDemande(demand);
+        }
     }
 
     @Transactional
     public void leaveAssociation(String login){
         Member member = retrieveUser(findIdByLogin(login));
         if (!member.getContact()) {
+            Association association = member.getAssociation();
             member.setAssociation(null);
+            association.removeMember(member);
         }
+        member.setDemande(null);
     }
 
    public Member retrieveUser(int id) {

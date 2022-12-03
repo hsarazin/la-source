@@ -52,6 +52,10 @@ public class Association {
     public void addMember(Member member){
         this.members.add(member);
     }
+
+    public void removeMember(Member member){
+        this.members.remove(member);
+    }
     @Override
     public String toString() {
         return nom;

@@ -42,7 +42,7 @@ public class LaSourceController {
         model.addAttribute("posts", facade.getAllPost(login));
         model.addAttribute("demandes", facade.getAllDemands(login));
         if(my_association!=null) {
-            model.addAttribute("my_association", my_association.getNom());
+            model.addAttribute("my_association", my_association);
         }
         addElemIfContact(model, login);
         return "welcome";

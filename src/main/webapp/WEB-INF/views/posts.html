@@ -10,7 +10,7 @@
                 <span class="col-md-3"></span>
             </div>
             <tr  th:each="post : ${posts}" style="justify-content: space-around;text-align: center">
-                <th:block  th:if="${post.association}">
+                <th:block  th:if="${post.association} and ${post.association.getId() != my_association.getId()}">
                     <form th:action="@{/demande}" th:object="${postDto}">
                         <div class="row" style="justify-content: center; margin-top: 20px">
 
