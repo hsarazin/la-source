@@ -5,13 +5,13 @@
     <form style="margin-top: 20px">
         <table>
                 <ul style="list-style-type: none" th:each="association : ${associations}">
-                    <li class="row">
-                        <span class="col-md-4"></span>
-                        <span class="col-md-2" th:text="${association.nom}"/>
-                        <th:block th:if="not ${my_association}">
-                            <button class="col-md-2 btn btn-outline-info" th:formaction="@{/join}" th:name="association_id" th:value="${association.id}" >rejoindre</button>
-                        </th:block>
-                    </li>
+                        <li class="row">
+                            <span class="col-md-4"></span>
+                            <span class="col-md-2" th:text="${association.nom}"/>
+                            <th:block th:if="not ${my_association}">
+                                <button class="col-md-2 btn btn-outline-info" th:formaction="@{/join}" th:name="association_id" th:value="${association.id}" >rejoindre</button>
+                            </th:block>
+                        </li>
                 </ul>
         </table>
     </form>
