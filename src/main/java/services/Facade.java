@@ -1,9 +1,11 @@
 package services;
 
+import dtos.PostDto;
 import entities.Association;
 import entities.Member;
 import entities.Post;
 import exceptions.AssociationAlreadyExistException;
+import exceptions.PostAlreayAskedException;
 import exceptions.UserAllreadyExistsException;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +13,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -82,6 +85,7 @@ public class Facade {
         Association association = em.find(Association.class,association_id);
         Member member = retrieveUser(findIdByLogin(login));
         member.setAssociation(association);
+        association.addMember(member);
     }
 
     @Transactional
@@ -144,11 +148,28 @@ public class Facade {
         return (Post) q.getSingleResult();
    }
 
-   public List<Post> getAllPost(){
+   public List<PostDto> getAllPost(String login){
         Query q = em.createQuery("select p from Post p");
+        List<PostDto> postDtos = new ArrayList<>();
         List<Post> posts = q.getResultList();
-       System.out.println(posts);
-        return posts;
+        Member member = em.find(Member.class,findIdByLogin(login));
+        for (Post post : posts){
+            PostDto postDto = new PostDto();
+            postDto.setNom(post.getNom());
+            postDto.setCategorie(post.getCategorie());
+            postDto.setAssociation(post.getAssociation());
+
+            postDto.select(false);
+            for (Post post1 : member.getDemande()) {
+                if(post1.getId()==post.getId()){
+                    postDto.select(true);
+                }
+            }
+
+            postDtos.add(postDto);
+
+        }
+        return postDtos;
    }
 
    public List<Post> getALlPostExcept(Post post){
@@ -164,16 +185,26 @@ public class Facade {
     }
 
     @Transactional
-    public void addPost(int post_id, int member_id){
+    public void addPost (int post_id, int member_id) throws PostAlreayAskedException{
         Member member = em.find(Member.class, member_id);
         Post post = em.find(Post.class, post_id);
         List<Post> demandes = member.getDemande();
         if(demandes.contains(post)){
-            return;
+            throw new PostAlreayAskedException();
         }
-        List<Post> posts = member.addDemande(post);
-        System.out.println("posts" + posts);
-        System.out.println("Facade :" + member.getDemande());
+        Association association = member.getAssociation();
+        association.getContactMember().addDemande(post);
+        for(Member association_member : association.getMembers()){
+            association_member.addDemande(post);
+
+        }
+    }
+    public void demand(int post_id,String login){
+        System.out.println("DEMANDE");
+        Member member = em.find(Member.class, findIdByLogin(login));
+        Post post = em.find(Post.class, post_id);
+        post.addDemands(member);
+        System.out.println("DEMANDES : "+ post.getDemands());
     }
 
     public List<Post> getAllDemands(String login) {

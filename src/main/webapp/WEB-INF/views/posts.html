@@ -19,8 +19,12 @@
                             <span class="col-md-2" th:text="${post.association}"/>
                             <input type="hidden" th:value="${post.nom}" name="nom"/>
                             <input type="hidden" th:value="${post.categorie}" name="categorie"/>
-
-                            <button class="btn btn-outline-dark col-md-3" type="submit">Request</button>
+                            <th:block th:unless="${post.selected}">
+                                <button class="btn btn-outline-dark col-md-3" type="submit">Demander</button>
+                            </th:block>
+                            <th:block th:if="${post.selected}">
+                                <button disabled class="btn btn-danger col-md-3" type="submit">Demandé</button>
+                            </th:block>
                         </div>
                     </form>
                 </th:block>

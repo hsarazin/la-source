@@ -11,6 +11,8 @@ public class PostDto {
 
     private Association association;
 
+    private boolean selected;
+
     public PostDto() {}
 
     public String getNom() {
@@ -35,5 +37,23 @@ public class PostDto {
 
     public void setAssociation(Association association) {
         this.association = association;
+    }
+
+    public void select(boolean selection){
+        selected=selection;
+    }
+
+    public boolean isSelected(){
+        return this.selected;
+    }
+
+    @Override
+    public String toString() {
+        return "PostDto{" +
+                "nom='" + nom + '\'' +
+                ", categorie='" + categorie + '\'' +
+                ", association=" + association +
+                ", selected=" + selected +
+                '}';
     }
 }

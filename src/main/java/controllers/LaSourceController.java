@@ -7,6 +7,7 @@ import entities.Association;
 import entities.Member;
 import entities.Post;
 import exceptions.AssociationAlreadyExistException;
+import exceptions.PostAlreayAskedException;
 import exceptions.UserAllreadyExistsException;
 import org.h2.engine.Mode;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +39,7 @@ public class LaSourceController {
         Association my_association = facade.getMyAssociation(login);
         model.addAttribute("courant",login);
         model.addAttribute("username",login);
-        model.addAttribute("posts", facade.getAllPost());
+        model.addAttribute("posts", facade.getAllPost(login));
         model.addAttribute("demandes", facade.getAllDemands(login));
         if(my_association!=null) {
             model.addAttribute("my_association", my_association.getNom());
@@ -132,12 +133,17 @@ public class LaSourceController {
     @RequestMapping("demande")
     public String demandePost(PostDto postDto, @SessionAttribute String courant, Model model){
         Post post = facade.getPost(postDto.getNom());
-        System.out.println("recherche" + post.getId());
         Member contact = facade.getMyContact(courant);
-        facade.addPost(post.getId(), contact.getId());
+        try {
+            facade.addPost(post.getId(), contact.getId());
+            facade.demand(post.getId(),courant);
+        } catch(PostAlreayAskedException exception){
+            return fragment("post",model,courant);
+        }
+
         System.out.println("Facade from contoller" + facade.getAllDemands(contact.getLogin()));
         System.out.println("Controller" + contact.getDemande());
-        return loadWelcome(courant,model);
+        return fragment("post",model,courant);
     }
 
     @RequestMapping("valider")
@@ -152,7 +158,7 @@ public class LaSourceController {
 
     private void addElemIfContact(Model model,String courant) {
         model.addAttribute("contact", facade.getIsContact(courant));
-        model.addAttribute("posts", facade.getAllPost());
+        model.addAttribute("posts", facade.getAllPost(courant));
         model.addAttribute("associations", facade.getAllAssociations());
         model.addAttribute("demandes", facade.getAllDemands(courant));
     }

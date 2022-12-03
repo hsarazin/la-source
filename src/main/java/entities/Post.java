@@ -78,6 +78,10 @@ public class Post {
 
     public void setDemands(List<Member> demands) {this.demands = demands; }
 
+    public void addDemands(Member member){
+        this.demands.add(member);
+    }
+
     public boolean isValide() {
         return valide;
     }
