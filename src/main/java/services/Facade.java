@@ -191,7 +191,13 @@ public class Facade {
         Association association = em.find(Member.class, idContactPerson).getAssociation();
         Post post=new Post(nom, categorie, association);
         em.persist(post);
+    }
 
+    @Transactional
+    public void deletePost(int post_id){
+        Post post = em.find(Post.class, post_id);
+        System.out.println(post);
+        em.remove(post);
     }
 
     @Transactional
@@ -206,7 +212,6 @@ public class Facade {
         association.getContactMember().addDemande(post);
         for(Member association_member : association.getMembers()){
             association_member.addDemande(post);
-
         }
     }
     public void demand(int post_id,String login){
@@ -221,5 +226,12 @@ public class Facade {
         Member member = em.find(Member.class,findIdByLogin(login));
         System.out.println("Facade getAllDemandes :" + member.getDemande());
         return member.getDemande();
+    }
+
+    public List<Post> getMyPost(String login) {
+        Query q = em.createQuery("select p from Post p where p.association.contactMember.login=:l").setParameter("l", login);
+        //System.out.println("coucou: " + q.getResultList());
+        return q.getResultList();
+
     }
 }

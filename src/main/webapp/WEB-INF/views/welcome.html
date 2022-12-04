@@ -53,6 +53,9 @@
                         <th:block th:if="${contact}">
                             <button class="btn btn-outline-dark col-md-2" type="submit" th:name="fragment" th:value="creePost">Créer une offre</button>
                         </th:block>
+                        <th:block th:if="${contact}">
+                            <button class="btn btn-outline-dark col-md-2" type="submit" th:name="fragment" th:value="mesPosts">Voir mes offres</button>
+                        </th:block>
                     </div>
                 </form>
 
@@ -65,6 +68,9 @@
                 </div>
                 <div th:case="'creePost'">
                     <div th:insert="creerPosts :: creerPost"></div>
+                </div>
+                <div th:case="'mesPosts'">
+                    <div th:insert="mesOffres :: offre"></div>
                 </div>
                 <div th:case="'association'">
                     <h3 style="text-align: center; font-style: italic; margin-top: 20px">

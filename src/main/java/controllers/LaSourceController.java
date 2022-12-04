@@ -42,6 +42,7 @@ public class LaSourceController {
         model.addAttribute("username",login);
         model.addAttribute("posts", facade.getAllPost(login));
         model.addAttribute("demandes", facade.getAllDemands(login));
+        model.addAttribute("myPosts", facade.getMyPost(login));
         if(my_association!=null) {
             model.addAttribute("my_association", my_association);
         }
@@ -158,15 +159,24 @@ public class LaSourceController {
     }
 
     @RequestMapping("post/create")
-    public String post(PostDto postDto,BindingResult result, Model model, @SessionAttribute String courant){
+    public String postCreate(PostDto postDto,BindingResult result, Model model, @SessionAttribute String courant){
         facade.createPost(postDto.getNom(),postDto.getCategorie(), facade.findIdByLogin(courant));
         return loadWelcome(courant,model);
     }
+
+    @RequestMapping("post/delete")
+    public String postDelete(PostDto postDto,BindingResult result, Model model, @SessionAttribute String courant){
+        Post post = facade.getPost(postDto.getNom());
+        facade.deletePost(post.getId());
+        return loadWelcome(courant,model);
+    }
+
 
     private void addElemIfContact(Model model,String courant) {
         model.addAttribute("contact", facade.getIsContact(courant));
         model.addAttribute("posts", facade.getAllPost(courant));
         model.addAttribute("associations", facade.getAllAssociations());
         model.addAttribute("demandes", facade.getAllDemands(courant));
+        model.addAttribute("myPosts", facade.getMyPost(courant));
     }
 }
