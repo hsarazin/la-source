@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<body>
+  <div th:fragment="creerPost" style="justify-content: space-around;text-align: center">
+    <form action="#" th:action="@{/post/create}" th:object="${postDto}" method="post"
+          style="margin-top: 20px">
+      <div class="row">
+        <div class="col-md-3">
+          Nom
+        </div>
+        <input class="col-md-8" type="text" id="nom" name="nom" value ="" minlength="3" autofocus/>
+      </div>
+      <div class="row">
+        <div class="col-md-3">
+          Categorie
+        </div>
+        <input class="col-md-8" type="text" id="categorie" name="categorie" value ="" minlength="3" autofocus/>
+      </div>
+
+      <div class="row" style="margin-top: 20px">
+        <button class="col-md-12 btn btn-outline-success" type="submit" value="Submit"/>
+        Créer post
+        </button>
+      </div>
+
+      <div class="row" th:if="${#fields.hasErrors('global')}">
+        <p style="color: red;" th:each="err : ${#fields.errors('global')}" th:text="${err}" />
+      </div>
+    </form>
+  </div>
+</body>
+</html>

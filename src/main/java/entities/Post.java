@@ -1,7 +1,5 @@
 package entities;
 
-import org.springframework.lang.Nullable;
-
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;

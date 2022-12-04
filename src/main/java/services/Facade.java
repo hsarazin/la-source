@@ -5,6 +5,7 @@ import entities.Association;
 import entities.Member;
 import entities.Post;
 import exceptions.AssociationAlreadyExistException;
+import exceptions.PostAlreadyExistsException;
 import exceptions.PostAlreayAskedException;
 import exceptions.UserAllreadyExistsException;
 import org.springframework.stereotype.Service;
@@ -187,9 +188,10 @@ public class Facade {
 
    @Transactional
     public void createPost(String nom, String categorie, int idContactPerson){
-        Association asso = em.find(Member.class, idContactPerson).getAssociation();
-        Post p=new Post(nom, categorie, asso);
-        em.persist(p);
+        Association association = em.find(Member.class, idContactPerson).getAssociation();
+        Post post=new Post(nom, categorie, association);
+        em.persist(post);
+
     }
 
     @Transactional

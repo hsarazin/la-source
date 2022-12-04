@@ -7,6 +7,7 @@ import entities.Association;
 import entities.Member;
 import entities.Post;
 import exceptions.AssociationAlreadyExistException;
+import exceptions.PostAlreadyExistsException;
 import exceptions.PostAlreayAskedException;
 import exceptions.UserAllreadyExistsException;
 import org.h2.engine.Mode;
@@ -154,6 +155,12 @@ public class LaSourceController {
         loadWelcome(courant,model);*/
         loadWelcome(courant,model);
         return "welcome";
+    }
+
+    @RequestMapping("post/create")
+    public String post(PostDto postDto,BindingResult result, Model model, @SessionAttribute String courant){
+        facade.createPost(postDto.getNom(),postDto.getCategorie(), facade.findIdByLogin(courant));
+        return loadWelcome(courant,model);
     }
 
     private void addElemIfContact(Model model,String courant) {

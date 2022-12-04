@@ -9,7 +9,6 @@ public class Association {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int id;
     private String nom;
-
     @OneToOne
     private Member contactMember;
 

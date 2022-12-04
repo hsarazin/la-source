@@ -2,10 +2,9 @@ package dtos;
 
 import entities.Association;
 
-import java.time.LocalDateTime;
-
 public class PostDto {
 
+    private int id;
     private String nom;
     private String categorie;
 
@@ -14,6 +13,16 @@ public class PostDto {
     private boolean selected;
 
     public PostDto() {}
+
+    public PostDto(int id, String nom, String categorie) {
+        this.id = id;
+        this.nom = nom;
+        this.categorie = categorie;
+    }
+
+    public int getId() {
+        return id;
+    }
 
     public String getNom() {
         return nom;
@@ -39,8 +48,7 @@ public class PostDto {
         this.association = association;
     }
 
-    public void select(boolean selection){
-        selected=selection;
+    public void select(boolean selection){this.selected=selection;
     }
 
     public boolean isSelected(){
